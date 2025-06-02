@@ -1,12 +1,15 @@
+// index.js
 require('dotenv').config();
 const express = require('express');
-const axios = require('axios');
-const bodyParser = require('body-parser');
-const crypto = require('crypto');
+const axios   = require('axios');
+const crypto  = require('crypto');
+const fs = require('fs');
+const path = require('path');
 
 const app = express();
-app.use(bodyParser.json());
+console.log('🔧  index.js arrancó');
 
+//--- Variables de entorno
 const {
   CODA_API_TOKEN,
   CODA_DOC_ID,
@@ -17,198 +20,366 @@ const {
   CODA_TABLE_DECISIONES_ID,
   CODA_TABLE_IDEAS_ID,
   CODA_TABLE_RESUMEN_ID,
-  CODA_TABLE_NUEVOSCHEMAS_ID,
+  CODA_TABLE_NUEVOSTEMAS_ID,
+  CODA_TABLE_INSIGHTS_ID,
   CIRCLEBACK_SECRET
 } = process.env;
 
 const TABLES = {
-  tareas: CODA_TABLE_TAREAS_ID,
-  preguntas: CODA_TABLE_PREGUNTAS_ID,
-  feedback: CODA_TABLE_FEEDBACK_ID,
-  riesgos: CODA_TABLE_RIESGOS_ID,
-  decisiones: CODA_TABLE_DECISIONES_ID,
-  ideas: CODA_TABLE_IDEAS_ID,
-  resumen: CODA_TABLE_RESUMEN_ID,
-  nuevoschemas: CODA_TABLE_NUEVOSCHEMAS_ID
+  Tarea:       CODA_TABLE_TAREAS_ID,
+  PreguntasPendientes:    CODA_TABLE_PREGUNTAS_ID,
+  Feedback:     CODA_TABLE_FEEDBACK_ID,
+  RiesgosBloqueos:      CODA_TABLE_RIESGOS_ID,
+  DecisionesEstratégicas:   CODA_TABLE_DECISIONES_ID,
+  IdeasSeguimientoInfo:        CODA_TABLE_IDEAS_ID,
+  ResumenReunion:      CODA_TABLE_RESUMEN_ID,
+  NuevoSchemaReunion: CODA_TABLE_NUEVOSTEMAS_ID,
+  insight_detallado:     CODA_TABLE_INSIGHTS_ID
 };
 
-function verifySignature(signature, body) {
-  const hmacDigest = crypto
+// Verifica firma (opcional)
+function verifySignature(signature, rawBody) {
+  if (!CIRCLEBACK_SECRET) return true;
+  const received = signature.replace(/^sha256=/, '');
+  const expected = crypto
     .createHmac('sha256', CIRCLEBACK_SECRET)
-    .update(body)
+    .update(rawBody)
     .digest('hex');
-  return hmacDigest === signature;
+  return crypto.timingSafeEqual(
+    Buffer.from(expected,  'hex'),
+    Buffer.from(received, 'hex')
+  );
 }
 
-async function agregarFilaACoda(tableKey, fila) {
-  try {
-    const tableId = TABLES[tableKey];
-    const url = `https://coda.io/apis/v1/docs/${CODA_DOC_ID}/tables/${tableId}/rows`;
-    const payload = {
-      rows: [
-        {
-          cells: Object.entries(fila).map(([k, v]) => ({
-            column: k,
-            value: v
-          }))
-        }
-      ]
-    };
-    await axios.post(url, payload, {
-      headers: { Authorization: `Bearer ${CODA_API_TOKEN}` }
-    });
-  } catch (error) {
-    console.error(`Error insertando en Coda (${tableKey}):`, error.response ? error.response.data : error.message);
+// Inserta filas en bloques con delays y logging de respuesta
+async function insertarEnBloques(tableKey, filas) {
+  if (!filas || filas.length === 0) {
+    console.log(`✅  [${tableKey}] No hay filas para insertar. Saltando.`);
+    return;
   }
+
+  const tableId = TABLES[tableKey];
+  const url = `https://coda.io/apis/v1/docs/${CODA_DOC_ID}/tables/${tableId}/rows`;
+  const batchSize = 25;   // Ajusta si tu tabla admite menos filas por request
+  const minDelay = 700;   // 700 ms entre cada POST para respetar 10/6 s
+
+  console.log(`🆕  [${tableKey}] Empezando inserción de ${filas.length} filas en lotes de ${batchSize}...`);
+
+  for (let i = 0; i < filas.length; i += batchSize) {
+    const lote = filas.slice(i, i + batchSize);
+    console.log(`   ➡️  [${tableKey}] Enviando lote ${Math.floor(i/batchSize) + 1} (filas ${i}–${Math.min(i + batchSize - 1, filas.length - 1)})`);
+
+    let success = false, intentos = 0;
+    while (!success && intentos < 8) {
+      try {
+        const response = await axios.post(
+          url,
+          { rows: lote },
+          { headers: { Authorization: `Bearer ${CODA_API_TOKEN}`, 'Content-Type': 'application/json' } }
+        );
+        console.log(`   ✅  [${tableKey}] Lote ${Math.floor(i/batchSize) + 1} insertado correctamente.`);
+        const res = JSON.stringify(response.data, null, 2);
+        console.log(`       [${tableKey}] Respuesta completa:`, JSON.stringify(response.data, null, 2));
+        // Imprimimos la respuesta bruta para ver qué reconoce Coda
+        console.log(`       [${tableKey}] Response rows:`, JSON.stringify(response.data.insertedRowIds || response.data, null, 2));
+        success = true;
+      } catch (err) {
+        if (err.response?.status === 429) {
+          const delay = minDelay * (intentos + 2);
+          console.warn(`   ⚠️  [${tableKey}] 429 recibido. Esperando ${delay}ms antes de reintentar (intento ${intentos + 1})`);
+          await new Promise(res => setTimeout(res, delay));
+          intentos++;
+        } else {
+          console.error(`   ❌  [${tableKey}] Error insertando lote ${Math.floor(i/batchSize) + 1}:`,
+            err.response ? err.response.data : err.message);
+          break;
+        }
+      }
+    }
+
+    if (i + batchSize < filas.length) {
+      console.log(`   ⏳  [${tableKey}] Esperando ${minDelay}ms antes del siguiente lote.`);
+      await new Promise(res => setTimeout(res, minDelay));
+    }
+  }
+
+  console.log(`📦  [${tableKey}] Inserción completada.`);
 }
 
-function procesarTodoYMandarACoda(data) {
+// Procesa e inserta todas las tablas en serie
+async function procesarTodoYMandarACoda(data) {
+  const filasTareas       = [];
+  const filasPreguntas    = [];
+  const filasFeedback     = [];
+  const filasRiesgos      = [];
+  const filasDecisiones   = [];
+  const filasIdeas        = [];
+  const filasResumen      = [];
+  const filasnuevostemas = [];
+  const filasInsights     = [];
+
   // 1. TAREAS
-  (data.tareas || []).forEach(tarea => {
-    const fila = {
-      tarea_id: tarea.tarea_id,
-      tema_principal: tarea.tema_principal,
-      descripcion_completa: tarea.descripcion_completa,
-      responsable_directo: tarea.responsable_directo,
-      otros_participantes: tarea.otros_participantes,
-      fecha_limite: tarea.fecha_limite,
-      proyecto_o_area_relacionada: tarea.proyecto_o_area_relacionada,
-      impacto_importancia: tarea.impacto_importancia,
-      requiere_seguimiento: tarea.requiere_seguimiento,
-      notas_adicionales: tarea.notas_adicionales
-    };
-    agregarFilaACoda('tareas', fila);
+  (data.Tarea || []).forEach((item) => {
+    // Usa "insight" si existe o vuelve a la propiedad original
+    const tarea = item.insight || item.tarea || item;
+    if (!tarea) return;
+    filasTareas.push({
+      cells: [
+        { column: 'tarea_id',                    value: tarea.tarea_id || '' },
+        { column: 'tema_principal',              value: tarea.tema_principal || '' },
+        { column: 'descripcion_completa',        value: tarea.descripcion_completa || '' },
+        { column: 'responsable_directo',         value: tarea.responsable_directo || '' },
+        { column: 'otros_participantes',         value: tarea.otros_participantes || '' },
+        { column: 'fecha_limite',                value: tarea.fecha_limite || '' },
+        { column: 'proyecto_o_area_relacionada', value: tarea.proyecto_o_area_relacionada || '' },
+        { column: 'impacto_importancia',         value: tarea.impacto_importancia || '' },
+        { column: 'requiere_seguimiento',        value: tarea.requiere_seguimiento !== undefined ? tarea.requiere_seguimiento : false },
+        { column: 'notas_adicionales',           value: tarea.notas_adicionales || '' }
+      ]
+    });
   });
 
-  // 2. PREGUNTAS
-  (data.preguntas_pendientes || []).forEach(pregunta => {
-    const fila = {
-      pregunta_id: pregunta.pregunta_id,
-      texto_pregunta: pregunta.texto_pregunta,
-      autor_pregunta: pregunta.autor_pregunta,
-      contexto: pregunta.contexto,
-      estado_actual: pregunta.estado_actual,
-      fecha_registro: pregunta.fecha_registro
-    };
-    agregarFilaACoda('preguntas', fila);
+  // 2. PREGUNTAS PENDIENTES
+  (data.PreguntasPendientes || []).forEach((item) => {
+    const pregunta = item.insight || item.pregunta || item;
+    if (!pregunta) return;
+    filasPreguntas.push({
+      cells: [
+        { column: 'pregunta_id',    value: pregunta.pregunta_id || '' },
+        { column: 'texto_pregunta', value: pregunta.texto_pregunta || '' },
+        { column: 'autor_pregunta', value: pregunta.autor_pregunta || '' },
+        { column: 'contexto',       value: pregunta.contexto || '' },
+        { column: 'estado_actual',  value: pregunta.estado_actual || '' },
+        { column: 'fecha_registro', value: pregunta.fecha_registro || '' }
+      ]
+    });
   });
 
   // 3. FEEDBACK
-  (data.feedback || []).forEach(feedback => {
-    const fila = {
-      feedback_id: feedback.feedback_id,
-      autor_feedback: feedback.autor_feedback,
-      texto_feedback: feedback.texto_feedback,
-      categoría: feedback.categoría,
-      urgencia: feedback.urgencia,
-      fecha_feedback: feedback.fecha_feedback
-    };
-    agregarFilaACoda('feedback', fila);
+  (data.Feedback || []).forEach((item) => {
+    const fb = item.insight || item.fb || item;
+    if (!fb) return;
+    filasFeedback.push({
+      cells: [
+        { column: 'feedback_id',    value: fb.feedback_id || '' },
+        { column: 'autor_feedback', value: fb.autor_feedback || '' },
+        { column: 'texto_feedback', value: fb.texto_feedback || '' },
+        { column: 'categoria',      value: fb.categoria || '' },
+        { column: 'urgencia',       value: fb.urgencia || '' },
+        { column: 'fecha_feedback', value: fb.fecha_feedback || '' }
+      ]
+    });
   });
 
   // 4. RIESGOS/BLOQUEOS
-  (data.riesgos_bloqueos || []).forEach(riesgo => {
-    const fila = {
-      riesgo_id: riesgo.riesgo_id || riesgo.bloqueo_id,
-      tipo: riesgo.tipo,
-      descripción: riesgo.descripción,
-      origen: riesgo.origen,
-      impacto_posible: riesgo.impacto_posible,
-      acción_recomendada: riesgo.acción_recomendada,
-      responsable: riesgo.responsable,
-      fecha_identificación: riesgo.fecha_identificación
-    };
-    agregarFilaACoda('riesgos', fila);
+  (data.RiesgosBloqueos || []).forEach((item) => {
+    const riesgo = item.insight || item.riesgo || item;
+    if (!riesgo) return;
+    filasRiesgos.push({
+      cells: [
+        { column: 'riesgo_id',            value: riesgo.riesgo_id || '' },
+        { column: 'bloqueo_id',           value: riesgo.bloqueo_id || '' },
+        { column: 'tipo',                 value: riesgo.tipo || '' },
+        { column: 'descripcion',          value: riesgo.descripcion || '' },
+        { column: 'origen',               value: riesgo.origen || '' },
+        { column: 'impacto_posible',      value: riesgo.impacto_posible || '' },
+        { column: 'accion_recomendada',   value: riesgo.accion_recomendada || '' },
+        { column: 'responsable',          value: riesgo.responsable || '' },
+        { column: 'fecha_identificacion', value: riesgo.fecha_identificacion || '' }
+      ]
+    });
   });
 
-  // 5. DECISIONES
-  (data.decisiones_estrategicas || []).forEach(decision => {
-    const fila = {
-      decision_id: decision.decision_id,
-      descripción_decisión: decision.descripción_decisión,
-      justificación: decision.justificación,
-      participantes_clave: decision.participantes_clave,
-      fecha_decisión: decision.fecha_decisión,
-      impacto_en: decision.impacto_en,
-      seguimiento_requerido: decision.seguimiento_requerido,
-      próxima_fecha_revisión: decision.próxima_fecha_revisión
-    };
-    agregarFilaACoda('decisiones', fila);
+  // 5. DECISIONES ESTRATÉGICAS
+  (data.DecisionesEstratégicas || []).forEach((item) => {
+    const d = item.insight || item.d || item;
+    if (!d) return;
+    filasDecisiones.push({
+      cells: [
+        { column: 'decision_id',            value: d.decision_id || '' },
+        { column: 'tipo_de_insight',        value: d.tipo_de_insight || 'decision' },
+        { column: 'descripcion_decision',   value: d.descripcion_decision || '' },
+        { column: 'justificacion',          value: d.justificacion || '' },
+        { column: 'participantes_clave',    value: d.participantes_clave || '' },
+        { column: 'fecha_decision',         value: d.fecha_decision || '' },
+        { column: 'impacto_en',             value: d.impacto_en || '' },
+        { column: 'seguimiento_requerido',  value: d.seguimiento_requerido !== undefined ? d.seguimiento_requerido : false },
+        { column: 'proxima_fecha_revision', value: d.proxima_fecha_revision || '' }
+      ]
+    });
   });
 
   // 6. IDEAS / SEGUIMIENTO / INFO
-  (data.ideas_seguimiento_info || []).forEach(idea => {
-    const fila = {
-      idea_id: idea.idea_id || idea.seguimiento_id || idea.info_id,
-      tema_principal: idea.tema_principal,
-      descripción: idea.descripción,
-      responsable_directo: idea.responsable_directo,
-      otros_participantes: idea.otros_participantes,
-      fecha_reunión: idea.fecha_reunión,
-      notas_adicionales: idea.notas_adicionales
-    };
-    agregarFilaACoda('ideas', fila);
+  (data.IdeasSeguimientoInfo || []).forEach((item) => {
+    const idea = item.insight || item.idea || item;
+    if (!idea) return;
+    filasIdeas.push({
+      cells: [
+        { column: 'idea_id',             value: idea.idea_id || idea.seguimiento_id || idea.info_id || '' },
+        { column: 'tipo_de_insight',     value: idea.tipo_de_insight || 'idea' },
+        { column: 'tema_principal',      value: idea.tema_principal || '' },
+        { column: 'descripcion',         value: idea.descripcion || '' },
+        { column: 'responsable_directo', value: idea.responsable_directo || '' },
+        { column: 'otros_participantes', value: idea.otros_participantes || '' },
+        { column: 'fecha_reunion',       value: idea.fecha_reunion || '' },
+        { column: 'notas_adicionales',   value: idea.notas_adicionales || '' }
+      ]
+    });
   });
 
   // 7. RESUMEN REUNIÓN
-  if (data.resumen_reunion) {
-    const resumen = data.resumen_reunion;
-    const fila = {
-      reunion_id: resumen.reunion_id,
-      fecha_reunión: resumen.fecha_reunión,
-      titulo_reunión: resumen.titulo_reunión,
-      resumen_general: resumen.resumen_general,
-      participantes_principales: resumen.participantes_principales,
-      temas_clave: resumen.temas_clave,
-      decisiones_tomadas: resumen.decisiones_tomadas,
-      tareas_identificadas: resumen.tareas_identificadas,
-      bloqueos_detectados: resumen.bloqueos_detectados,
-      seguimiento_requerido: resumen.seguimiento_requerido,
-      proyectos_relacionados: resumen.proyectos_relacionados
-    };
-    agregarFilaACoda('resumen', fila);
-  }
+  (data.ResumenReunion || []).forEach((item) => {
+    const r = item.insight || item.r || item;
+    if (!r) return;
+    filasResumen.push({
+      cells: [
+        { column: 'reunion_id',                value: r.reunion_id || '' },
+        { column: 'fecha_reunion',             value: r.fecha_reunion || '' },
+        { column: 'titulo_reunion',            value: r.titulo_reunion || '' },
+        { column: 'resumen_general',           value: r.resumen_general || '' },
+        { column: 'participantes_principales', value: r.participantes_principales || '' },
+        { column: 'temas_clave',               value: r.temas_clave || '' },
+        { column: 'decisiones_tomadas',        value: r.decisiones_tomadas || '' },
+        { column: 'tareas_identificadas',      value: r.tareas_identificadas || '' },
+        { column: 'bloqueos_detectados',       value: r.bloqueos_detectados || '' },
+        { column: 'seguimiento_requerido',     value: r.seguimiento_requerido || '' },
+        { column: 'proyectos_relacionados',    value: r.proyectos_relacionados || '' }
+      ]
+    });
+  });
 
   // 8. NUEVO SCHEMA REUNIÓN
-  (data.nuevo_schema_reunion || []).forEach(schema => {
-    const fila = {
-      schema_id: schema.schema_id,
-      motivo_genérico: schema.motivo_genérico,
-      campos_sugeridos: schema.campos_sugeridos,
-      valor_ejemplo: schema.valor_ejemplo
-    };
-    agregarFilaACoda('nuevoschemas', fila);
+  (data.NuevoSchemaReunion || []).forEach((item) => {
+    const schema = item.insight || item.schema || item;
+    if (!schema) return;
+    filasnuevostemas.push({
+      cells: [
+        { column: 'schema_id',        value: schema.schema_id || '' },
+        { column: 'motivo_generico',  value: schema.motivo_generico || '' },
+        { column: 'campos_sugeridos', value: schema.campos_sugeridos || '' },
+        { column: 'valor_ejemplo',    value: schema.valor_ejemplo || '' }
+      ]
+    });
   });
+
+  // 9. INSIGHTS DETALLADOS
+  (data.insight_detallado || []).forEach((detalle, index) => {
+    // Si existe la propiedad "insight", úsala; de lo contrario, usa "detalle" directamente.
+    const insight = detalle.insight || detalle;
+    filasInsights.push({
+      cells: [
+        // 👉 Column IDs adaptados al nuevo esquema
+        { column: 'insight_id',                  value: insight.insight_id },
+        { column: 'tipo_de_insight',             value: insight.tipo_de_insight || 'Tarea' },
+        { column: 'tema_principal',              value: insight.tema_principal || '' },
+        { column: 'resumen',                     value: insight.resumen || '' },
+        { column: 'descripcion_completa',        value: insight.descripcion_completa || '' },
+        { column: 'responsable_directo',         value: insight.responsable_directo || '' },
+        { column: 'otros_participantes',         value: insight.otros_participantes || '' },
+        { column: 'fecha_limite',                value: insight.fecha_limite || '' },
+        { column: 'proyecto_o_area_relacionada', value: insight.proyecto_o_area_relacionada || '' },
+        { column: 'impacto_importancia',         value: insight.impacto_importancia || '' },
+        { column: 'requiere_seguimiento',        value: insight.requiere_seguimiento ?? '' },
+        { column: 'notas_adicionales',           value: insight.notas_adicionales || '' }
+      ]
+    });
+  });
+
+  // Insertar las tablas en serie
+  console.log('⏳  Empezando inserción en Coda de todas las tablas en serie...');
+  await insertarEnBloques('Tarea',       filasTareas);
+  await insertarEnBloques('PreguntasPendientes',    filasPreguntas);
+  await insertarEnBloques('Feedback',     filasFeedback);
+  await insertarEnBloques('RiesgosBloqueos',      filasRiesgos);
+  await insertarEnBloques('DecisionesEstratégicas',   filasDecisiones);
+  await insertarEnBloques('IdeasSeguimientoInfo',        filasIdeas);
+  await insertarEnBloques('ResumenReunion',      filasResumen);
+  await insertarEnBloques('NuevoSchemaReunion', filasnuevostemas);
+  await insertarEnBloques('insight_detallado',     filasInsights);
+  console.log('✅  Inserción en Coda completada para todas las tablas.');
 }
 
-// -------- ENDPOINT PRINCIPAL --------
+//--- Ruta webhook ---
+app.post(
+  '/circleback_webhook',
+  express.raw({ type: 'application/json' }),
+  async (req, res) => {
+    const signature = req.headers['x-signature'] || '';
 
-app.post('/circleback_webhook', (req, res) => {
-  const signature = req.header('x-signature');
-  let body = '';
-
-  req.on('data', chunk => {
-    body += chunk;
-  });
-
-  req.on('end', () => {
-    if (!verifySignature(signature, body)) {
-      return res.status(401).json({ error: 'Signature mismatch' });
+    if (!verifySignature(signature, req.body)) {
+      console.warn('⚠️  Firma inválida');
+      return res.status(401).send('Bad signature');
     }
-    let data;
+
+    res.status(200).end('OK');
     try {
-      data = JSON.parse(body);
-    } catch (e) {
-      return res.status(400).json({ error: 'Invalid JSON' });
-    }
-    procesarTodoYMandarACoda(data);
-    res.json({ status: 'ok' });
-  });
-});
+      const payload = JSON.parse(req.body.toString('utf8'));
+      console.log('☑️  Payload verificado:', payload);
+      const filename = `payload_${Date.now()}.json`;
+      const filepath = path.join(__dirname, filename);
+      fs.writeFileSync(filepath, JSON.stringify(payload, null, 2), 'utf8');
+      console.log(`💾  Payload guardado en ${filename}`);
+      if (!payload || !payload.insights) {
+        console.warn('⚠️  Payload no contiene insights. Ignorando.');
+        return;
+      }
+      console.log('🔍  Payload contiene insights. Procesando...');
+      console.log('📦  Payload recibido:', JSON.stringify(payload, null, 2));
 
-// -------- INICIA EL SERVIDOR --------
+      // Verifica que el payload tenga la estructura esperada
+      if (!payload.insights || typeof payload.insights !== 'object') {
+        console.warn('⚠️  Payload no tiene la estructura esperada. Ignorando.');
+        return;
+      }
+      console.log('✅  Payload tiene la estructura esperada. Procesando...');
+      // Asegúrate de que el payload tenga las claves esperadas
+      if (!payload.createdAt || !payload.id) {
+        console.warn('⚠️  Payload no contiene createdAt o id. Ignorando.');
+        return;
+      }
+      console.log('✅  Payload contiene createdAt e id. Procesando...');
+      console.log('📅  Fecha de creación:', payload.createdAt)
+      console.log('🔑  ID del payload:', payload.id)
+      console.log('🔍  Insights encontrados:', Object.keys(payload.insights))
+      console.log('🔄  Normalizando datos para Coda...')
+
+      // Si no, asigna valores por defecto o maneja el caso
+      if (!payload.insights['Tarea'] && !payload.insights['Preguntas Pendientes'] &&
+          !payload.insights['Feedback'] && !payload.insights['RiesgosBloqueos'] && 
+          !payload.insights['DecisionesEstratégicas'] && !payload.insights['IdeasSeguimientoInfo'] &&
+          !payload.insights['ResumenReunion'] && !payload.insights['NuevoSchemaReunion'] &&
+          !payload.insights['insight_detallado']) {
+        console.warn('⚠️  Payload no contiene insights válidos. Ignorando.');
+        return;
+      }
+      console.log('✅  Payload contiene insights válidos. Procesando...');
+      console.log('🔄  Normalizando datos para Coda...')
+      ;
+      // Normaliza los nombres de las claves para que coincidan con los esperados por procesarTodoYMandarACoda
+      const insights = payload.insights || {};
+      const convertedData = {
+        Tarea:                   insights['Tarea'] || [],
+        PreguntasPendientes:     insights['PreguntasPendientes'] || [],
+        Feedback:                 insights['Feedback'] || [],
+        RiesgosBloqueos:         insights['RiesgosBloqueos'] || [],
+        DecisionesEstratégicas:  insights['DecisionesEstratégicas'] || [],
+        IdeasSeguimientoInfo:   insights['IdeasSeguimientoInfo'] || [],
+        ResumenReunion:          insights['ResumenReunion'],
+        NuevoSchemaReunion:     insights['NuevoSchemaReunion'] || [],
+        insight_detallado:        insights['insight_detallado'] || [],
+        createdAt:                payload.createdAt,
+        id:                       payload.id
+      };
+
+      await procesarTodoYMandarACoda(convertedData);
+    } catch (err) {
+      console.error('❌  Error parseando JSON del webhook:', err.message);
+    }
+  }
+);
 
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`Servidor escuchando en puerto ${PORT}`);
-});
+console.log('🟢  A punto de llamar a app.listen');
+app.listen(PORT, () =>
+  console.log(`🚀  Servidor Express en http://localhost:${PORT}`)
+);

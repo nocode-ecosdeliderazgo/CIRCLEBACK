@@ -1,0 +1,184 @@
+{
+  "id": 2059304,
+  "name": "**Circle Back & Gemini Tools Evaluation**",
+  "createdAt": "2025-05-31T19:44:43.816Z",
+  "duration": 1594.78,
+  "url": "https://meet.google.com/vau-xahf-ghm",
+  "attendees": [
+    {
+      "name": "Gael Flores's Circleback.ai Notes"
+    },
+    {
+      "name": "Ernesto Hernández Martínez"
+    },
+    {
+      "name": "Gael Flores Gonzáles"
+    }
+  ],
+  "recordingUrl": "https://storage.googleapis.com/saved-meeting-recording.prod.circleback.ai/meeting_2059304.mp4?X-Goog-Algorithm=GOOG4-RSA-SHA256&X-Goog-Credential=circleback-ai%40appspot.gserviceaccount.com%2F20250602%2Fauto%2Fstorage%2Fgoog4_request&X-Goog-Date=20250602T064457Z&X-Goog-Expires=28800&X-Goog-SignedHeaders=host&X-Goog-Signature=92916eb702bbce2ae681e01beb39d6a2041350511fa896b5555cbfe58cf705c4ef306ae19e82f4f143c47a5a431eaf0bf1379ea7a9a8fbd7e029234bd271910ef99b3b182e99f8efdefb1974f01fdeae183bef35fffc695709bab57b9b56eb117ff638cab7135bdfb332122e7659c70303b3238aeb9396f87d133cbbbe9c72d14e9fd3107553fbce67451ae887b8757542ab05911a35b0f8724658043110f93886565430e58412dd7240f0a5d9bae7ddb480b15f966d159cce2ee30e51ee3b0ca235909e868efec85c52f5013c9435b0fc882808a33495e623dc2759bb4bfd6b5837e9f0628d0d8c875221c91f159ba2680b01febada6e71e699dfc9a25c7d61",
+  "tags": [],
+  "notes": "#### Overview\n* Ernesto y Gael exploraron múltiples herramientas para automatización de reuniones y toma de notas, incluyendo Gemini en Google Meet, Circle Back, Clio y alternativas de Hugging Face\n* Circle Back tiene un período de prueba de **7 días** antes de cancelar si no funciona\n* Google Workspace Business Starter actual limita funcionalidades, necesitarían Business Standard para acceso completo a Gemini\n* Gael continuará probando Circle Back mientras investigan otras opciones técnicas\n\n#### Configuración de Gemini en Google Meet\n* Ernesto explicó que Google Meet permite integración con Coda para crear sesiones automatizadas y grabar información en la misma plataforma\n* Gael intentó activar Gemini desde Gmail personal, encontrando opciones para \"reuniones mejoradas\"\n* Descubrieron que su plan actual Business Starter de Google Workspace no incluye acceso completo a Gemini\n* Ernesto identificó que necesitarían Business Standard para funcionalidades completas de Gemini\n\n#### Evaluación de Circle Back\n* Ernesto confirmó que tienen **7 días** de período de prueba antes de cancelar\n* Gael recibió instrucciones de completar todo el proceso con Circle Back para evaluación\n* Ernesto decidió continuar con Circle Back mientras investigan otras alternativas\n\n#### Prueba de herramientas Clio\n* Gael ya se había registrado previamente en Clio pero no había completado pruebas\n* Exploraron plantillas de preparación de reuniones que recopilan información sobre empresas objetivo y competidores\n* Ernesto evaluó que las plantillas disponibles no se ajustaban exactamente a sus necesidades\n\n#### Exploración de alternativas con Hugging Face\n* Gael preguntó sobre meeting note takers disponibles en Hugging Face usando GPT-4.1 mini\n* Ernesto sugirió investigar ejemplos web de Meeting Taker en Hugging Face\n* Consideraron Whisper como opción para transcripción, especialmente para casos sin conexión a Internet\n\n#### Limitaciones de planes de Google Workspace\n* Confirmaron que tienen Business Starter actualmente\n* Ernesto identificó que Business Standard sería necesario para funcionalidades avanzadas\n* Las limitaciones del plan actual impidieron acceso completo a herramientas de Gemini en Meet",
+  "actionItems": [
+    {
+      "id": 4722005,
+      "title": "Completar configuración y proceso con Circle Back",
+      "description": "Completar todo el proceso de configuración con Circle Back para automatización de reuniones, considerando que tienen 7 días para cancelar antes de que se cobre si no funciona adecuadamente.",
+      "assignee": {
+        "name": "Gael Flores Gonzáles",
+        "email": "nocode@ecosdeliderazgo.com"
+      },
+      "status": "PENDING"
+    }
+  ],
+  "insights": {
+    "Tarea": [
+      {
+        "insight": {
+          "tarea_id": "a8f3c2d1",
+          "responsable_directo": "Ernesto Hernández Martínez",
+          "tema_principal": "Gestión de suscripción Circle Back",
+          "descripcion_completa": "Cancelar la suscripción de Circle Back antes de que se cumplan los siete días de prueba, a menos que funcione correctamente",
+          "otros_participantes": "Gael Flores Gonzáles",
+          "fecha_limite": "2025-06-07",
+          "requiere_seguimiento": true,
+          "notas_adicionales": "Tienen solo siete días de prueba gratuita antes de que se active el cobro automático",
+          "proyecto_o_area_relacionada": "Automatización de reuniones",
+          "impacto_importancia": "Media"
+        },
+        "speaker": "Ernesto Hernández Martínez",
+        "timestamp": 79
+      },
+      {
+        "insight": {
+          "tarea_id": "b7e9f4a2",
+          "responsable_directo": "Gael Flores Gonzáles",
+          "tema_principal": "Implementación y prueba de Circle Back",
+          "descripcion_completa": "Completar todo el proceso de configuración y prueba con Circle Back para evaluar su funcionamiento",
+          "otros_participantes": "Ernesto Hernández Martínez",
+          "fecha_limite": null,
+          "requiere_seguimiento": true,
+          "notas_adicionales": "Después de probar Circle Back, continuarán investigando otras alternativas como Whisper y herramientas de Hugging Face",
+          "proyecto_o_area_relacionada": "Automatización de reuniones",
+          "impacto_importancia": "Alta"
+        },
+        "speaker": "Ernesto Hernández Martínez",
+        "timestamp": 1509
+      }
+    ],
+    "ResumenReunion": [
+      {
+        "insight": {
+          "reunion_id": "e6a3d1b4",
+          "decisiones_tomadas": "1",
+          "fecha_reunion": "2025-05-31",
+          "bloqueos_detectados": "1",
+          "titulo_reunion": "Evaluación de herramientas de automatización de reuniones",
+          "tareas_identificadas": "2",
+          "resumen_general": "Reunión técnica para evaluar diferentes herramientas de automatización y transcripción de reuniones. Se exploraron opciones como Google Meet con Gemini, Circle Back, Clio, Lindy y otras alternativas. Se decidió proceder con Circle Back como solución inicial mientras se investigan otras opciones. La conversación incluyó análisis de funcionalidades, limitaciones de planes de Google Workspace y evaluación de modelos de IA disponibles.",
+          "seguimiento_requerido": "Yes",
+          "participantes_principales": "Ernesto Hernández Martínez, Gael Flores Gonzáles",
+          "proyectos_relacionados": "Ecos de Liderazgo, Google Workspace, Circle Back, Clio, Lindy",
+          "temas_clave": "Integración Google Meet con Gemini, Evaluación Circle Back, Exploración Clio y Lindy, Análisis Google Workspace, Investigación Hugging Face, Modelos GPT disponibles"
+        },
+        "speaker": null,
+        "timestamp": null
+      }
+    ],
+    "IdeasSeguimientoInfo": [
+      {
+        "insight": {
+          "tema_principal": "Cancelación de Circle Back antes de 7 días",
+          "responsable_directo": "Ernesto Hernández Martínez",
+          "descripcion": "Recordatorio de que tienen solo 7 días para cancelar Circle Back antes de que se cobre, a menos que funcione bien para sus necesidades",
+          "fecha_reunion": "2025-05-31",
+          "idea_id": "f8a2c1d4",
+          "otros_participantes": "Gael Flores Gonzáles",
+          "notas_adicionales": "Evaluación pendiente de la funcionalidad de Circle Back",
+          "tipo_de_insight": "Seguimiento"
+        },
+        "speaker": "Ernesto Hernández Martínez",
+        "timestamp": 79
+      },
+      {
+        "insight": {
+          "tema_principal": "Evaluación de herramientas de automatización de reuniones",
+          "responsable_directo": "Gael Flores Gonzáles",
+          "descripcion": "Plan para evaluar múltiples herramientas: Google Meet, Clio y Lindy para automatización de reuniones y toma de notas",
+          "fecha_reunion": "2025-05-31",
+          "idea_id": "b7e9f3a2",
+          "otros_participantes": "Ernesto Hernández Martínez",
+          "notas_adicionales": "Secuencia de evaluación: Google Meet primero, luego Clio y Lindy",
+          "tipo_de_insight": "Seguimiento"
+        },
+        "speaker": "Ernesto Hernández Martínez",
+        "timestamp": 79
+      },
+      {
+        "insight": {
+          "tema_principal": "Limitaciones del plan Google Workspace Business Starter",
+          "responsable_directo": "",
+          "descripcion": "El plan actual Business Starter no permite acceso a funciones avanzadas de Gemini para Meet, se requiere Business Standard",
+          "fecha_reunion": "2025-05-31",
+          "idea_id": "c4d8e2f1",
+          "otros_participantes": "Gael Flores Gonzáles, Ernesto Hernández Martínez",
+          "notas_adicionales": "Posible necesidad de upgrade del plan para acceder a funciones de IA",
+          "tipo_de_insight": "Información"
+        },
+        "speaker": "Ernesto Hernández Martínez",
+        "timestamp": 578
+      },
+      {
+        "insight": {
+          "tema_principal": "Implementación completa del proceso con Circle Back",
+          "responsable_directo": "Gael Flores Gonzáles",
+          "descripcion": "Completar todo el proceso de configuración y prueba con Circle Back mientras se investigan alternativas como Whisper y otras herramientas de transcripción",
+          "fecha_reunion": "2025-05-31",
+          "idea_id": "a3b7c5d9",
+          "otros_participantes": "Ernesto Hernández Martínez",
+          "notas_adicionales": "Investigación paralela de otras opciones de transcripción y automatización",
+          "tipo_de_insight": "Seguimiento"
+        },
+        "speaker": "Ernesto Hernández Martínez",
+        "timestamp": 1509
+      }
+    ],
+    "insight_detallado": [
+      {
+        "insight": {
+          "tipo_de_insight": "Tarea",
+          "impacto_importancia": 2,
+          "otros_participantes": "Ernesto Hernández Martínez",
+          "requiere_seguimiento": true,
+          "fecha_limite": "2025-06-07",
+          "insight_id": "f8a2c3d1",
+          "tema_principal": "Cancelar suscripción Circle Back antes de 7 días",
+          "notas_adicionales": "Período de prueba de 7 días para evaluar funcionalidad",
+          "responsable_directo": "Gael Flores Gonzáles",
+          "resumen": "Cancelar Circle Back si no funciona dentro del período de prueba",
+          "proyecto_o_area_relacionada": "Automatización de reuniones",
+          "descripcion_completa": "Ernesto menciona que tienen 7 días para cancelar la suscripción de Circle Back antes de que se cobre, a menos que la herramienta funcione correctamente para sus necesidades de automatización de reuniones."
+        },
+        "speaker": "Ernesto Hernández Martínez",
+        "timestamp": 79
+      },
+      {
+        "insight": {
+          "tipo_de_insight": "Tarea",
+          "impacto_importancia": 3,
+          "otros_participantes": "Ernesto Hernández Martínez",
+          "requiere_seguimiento": true,
+          "fecha_limite": "",
+          "insight_id": "a7b9e4f2",
+          "tema_principal": "Completar proceso con Circle Back y investigar alternativas",
+          "notas_adicionales": "Incluye evaluación de múltiples herramientas para encontrar la mejor solución",
+          "responsable_directo": "Gael Flores Gonzáles",
+          "resumen": "Implementar Circle Back y explorar otras opciones de automatización",
+          "proyecto_o_area_relacionada": "Desarrollo de herramientas de automatización",
+          "descripcion_completa": "Ernesto asigna a Gael completar todo el proceso de implementación con Circle Back para evaluar su funcionamiento, mientras paralelamente investiga otras alternativas como las herramientas mencionadas durante la reunión (Google Meet, Clio, Lindy, etc.)."
+        },
+        "speaker": "Ernesto Hernández Martínez",
+        "timestamp": 1509
+      }
+    ]
+  }
+}

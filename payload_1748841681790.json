@@ -1,0 +1,190 @@
+{
+  "id": 2059276,
+  "name": "Evaluación Circleback y alternativas transcripción",
+  "createdAt": "2025-05-31T19:18:27.632Z",
+  "duration": 1057.349,
+  "url": "https://meet.google.com/jeq-tped-sbe",
+  "attendees": [
+    {
+      "name": "Gael Flores Gonzáles"
+    },
+    {
+      "name": "Ernesto Hernández Martínez"
+    }
+  ],
+  "recordingUrl": "https://storage.googleapis.com/saved-meeting-recording.prod.circleback.ai/meeting_2059276.mp4?X-Goog-Algorithm=GOOG4-RSA-SHA256&X-Goog-Credential=circleback-ai%40appspot.gserviceaccount.com%2F20250602%2Fauto%2Fstorage%2Fgoog4_request&X-Goog-Date=20250602T052121Z&X-Goog-Expires=28800&X-Goog-SignedHeaders=host&X-Goog-Signature=02e13106c9f947680b40717dd463872b6205e9995d806a7fcba80ebd2da665e74833634af7fc15fe76d7b3edabc542d69edb6d797cb23d53926ef5e524f2aace67bb8d95495602c77a6e0fdbaf5f7e61933cb78328871d4e9c968703984ebd2c0116929650c78a6bea67e93b04d8c569ed0b3539f8ba1af5dd3baae8020208014092495bdbaf9e9ce3d90fa123f93831270911da5e1ed71f85f7758151c0981c826ee8a465f191801954fea5f9d24c057d1c3c5b1e376f25d74e4fad6330c1c8244cd4315721168c155bd1a036b210e2437e99704342b2ee4f9302bdcf8698ed7d3b84a42797b2f680717dfd795ee6be868e45bb10cba542ea9d1dae80788d70",
+  "tags": [],
+  "notes": "#### Overview\n* Ernesto y Gael evaluaron Circleback como herramienta de transcripción, pero los insights no se generaron correctamente durante la prueba\n* Circleback cuesta **$25** mensuales por una sola sesión, lo que podría ser limitante para múltiples reuniones\n* Ernesto propuso evaluar alternativas como Mistral, indie ea, y recrío debido a las limitaciones actuales\n* Gael configuró automatización con webhooks para generar insights automáticamente al finalizar reuniones\n* Ernesto sugirió crear un documento Coda con tabla estructurada para organizar todas las reuniones\n\n#### Evaluación de funcionalidades de Circleback\n* Gael confirmó que Circleback guardó la transcripción correctamente\n* Ernesto observó que Circleback tiene muchas funcionalidades, pero no todas les son útiles para sus necesidades específicas\n* La herramienta graba video, pero Ernesto determinó que esta función no les sirve actualmente\n\n#### Costos y limitaciones de Circleback\n* Circleback cuesta **$25** mensuales por una sola sesión\n* Ernesto identificó que necesitarían múltiples sesiones, lo que aumentaría significativamente los costos\n* Ernesto cuestionó si están aprovechando realmente las funcionalidades que están pagando\n\n#### Problemas con generación de insights\n* Los insights no se agregaron a la transcripción durante la prueba\n* Gael explicó que los insights no se generaron porque primero necesitaba finalizar la configuración de automatización\n* La funcionalidad de insights no funcionó como se esperaba en esta sesión de prueba\n\n#### Alternativas de herramientas de transcripción\n* Ernesto propuso evaluar Mistral en un servidor propio como alternativa\n* Ernesto mencionó evaluar indie ea como opción\n* Ernesto sugirió considerar recrío, que también tiene funcionalidades para notas\n\n#### Configuración de automatización con webhooks\n* Gael configuró la automatización para enviar la última transcripción como prueba del webhook\n* La automatización debería generar insights automáticamente al finalizar cualquier reunión\n* Gael explicó que el sistema está configurado para funcionar de manera automática sin intervención manual\n\n#### Integración con documento Coda\n* Ernesto propuso crear un documento Coda con una tabla para organizar las reuniones de manera estructurada\n* La integración permitiría que las reuniones se ordenen automáticamente en el sistema\n* Ernesto sugirió que esta estructura ayudaría a mantener las reuniones organizadas",
+  "actionItems": [],
+  "insights": {
+    "ResumenReunion": [
+      {
+        "insight": {
+          "reunion_id": "a8f7c2d1",
+          "decisiones_tomadas": "2",
+          "fecha_reunion": "2025-05-31",
+          "bloqueos_detectados": "2",
+          "titulo_reunion": "Evaluación de herramientas de transcripción y automatización",
+          "tareas_identificadas": "3",
+          "resumen_general": "Reunión técnica para evaluar el funcionamiento de Circleback como herramienta de transcripción y generación de insights automáticos. Se discutieron problemas con la automatización actual, costos de $25 mensuales por sesión, y la necesidad de evaluar alternativas como Mistral, indie ea, y recrío. Se planteó crear una estructura en Coda para organizar las reuniones de manera sistemática.",
+          "seguimiento_requerido": "Yes",
+          "participantes_principales": "Ernesto Hernández Martínez, Gael Flores Gonzáles",
+          "proyectos_relacionados": "Circleback, Mistral, indie ea, recrío, Coda",
+          "temas_clave": "Evaluación de Circleback, Costos de herramientas, Automatización de insights, Alternativas tecnológicas, Estructura en Coda, Problemas de transcripción"
+        },
+        "speaker": null,
+        "timestamp": null
+      }
+    ],
+    "Tarea": [
+      {
+        "insight": {
+          "tarea_id": "a8f3d2e1",
+          "responsable_directo": "Ernesto Hernández Martínez",
+          "tema_principal": "Organización de reuniones en Coda",
+          "descripcion_completa": "Crear un documento de Coda con una tabla estructurada donde se ordenen y organicen las reuniones de manera sistemática",
+          "otros_participantes": "Gael Flores Gonzáles",
+          "fecha_limite": null,
+          "requiere_seguimiento": true,
+          "notas_adicionales": "Esta tarea surge de la necesidad de estructurar mejor la información de las reuniones y los insights generados",
+          "proyecto_o_area_relacionada": "Automatización de reuniones",
+          "impacto_importancia": "Media"
+        },
+        "speaker": "Ernesto Hernández Martínez",
+        "timestamp": 1026
+      }
+    ],
+    "insight_detallado": [
+      {
+        "insight": {
+          "tipo_de_insight": "Tarea",
+          "impacto_importancia": 2,
+          "otros_participantes": "Gael Flores Gonzáles",
+          "requiere_seguimiento": true,
+          "fecha_limite": "",
+          "insight_id": "a8f3d2e1",
+          "tema_principal": "Evaluación de alternativas a Circleback",
+          "notas_adicionales": "Se menciona que Circleback graba video pero esa funcionalidad no es necesaria actualmente. Los insights no se generaron correctamente en la prueba.",
+          "responsable_directo": "Ernesto Hernández Martínez",
+          "resumen": "Evaluar opciones de automatización alternativas a Circleback",
+          "proyecto_o_area_relacionada": "Automatización de transcripciones y insights",
+          "descripcion_completa": "Necesitamos evaluar si conviene más utilizar Circleback ($25 mensuales por sesión) o implementar Mistral en un servidor propio. También evaluar indie ea y recrío como alternativas para automatización de notas y transcripciones, ya que Circleback tiene funcionalidades que no estamos aprovechando completamente."
+        },
+        "speaker": "Ernesto Hernández Martínez",
+        "timestamp": 910
+      },
+      {
+        "insight": {
+          "tipo_de_insight": "Tarea",
+          "impacto_importancia": 2,
+          "otros_participantes": "Ernesto Hernández Martínez",
+          "requiere_seguimiento": true,
+          "fecha_limite": "",
+          "insight_id": "b7c4f9a2",
+          "tema_principal": "Crear documento y tabla en Coda para reuniones",
+          "notas_adicionales": "Esta tarea surge de la necesidad de tener mejor organización de las reuniones y sus insights generados automáticamente.",
+          "responsable_directo": "Gael Flores Gonzáles",
+          "resumen": "Crear estructura en Coda para organizar reuniones e insights",
+          "proyecto_o_area_relacionada": "Organización y documentación de reuniones",
+          "descripcion_completa": "Crear un documento de Coda con una tabla donde se vayan ordenando las reuniones de manera estructurada. Esto permitirá organizar mejor los insights generados y tener un seguimiento ordenado de todas las reuniones."
+        },
+        "speaker": "Ernesto Hernández Martínez",
+        "timestamp": 1026
+      }
+    ],
+    "PreguntasPendientes": [
+      {
+        "insight": {
+          "pregunta_id": "a8f3d2e1",
+          "autor_pregunta": "Ernesto Hernández Martínez",
+          "estado_actual": "Abierta",
+          "contexto": "Discusión sobre si agregar información que no parece útil para el proyecto",
+          "fecha_registro": "2025-05-31",
+          "texto_pregunta": "¿Debo agregar o no agregar algo así?"
+        },
+        "speaker": "Ernesto Hernández Martínez",
+        "timestamp": 440
+      },
+      {
+        "insight": {
+          "pregunta_id": "b7c4e9f2",
+          "autor_pregunta": "Ernesto Hernández Martínez",
+          "estado_actual": "Abierta",
+          "contexto": "Evaluación de herramientas para automatización - comparación entre Circleback y Mistral",
+          "fecha_registro": "2025-05-31",
+          "texto_pregunta": "¿Necesitamos ver si vamos a utilizar Circleback o mejor utilizamos Mistral en un servidor que tenga Mistral?"
+        },
+        "speaker": "Ernesto Hernández Martínez",
+        "timestamp": 887
+      },
+      {
+        "insight": {
+          "pregunta_id": "c9d6a3b4",
+          "autor_pregunta": "Ernesto Hernández Martínez",
+          "estado_actual": "En revisión",
+          "contexto": "Consulta sobre el precio de la herramienta Circleback para evaluar costos",
+          "fecha_registro": "2025-05-31",
+          "texto_pregunta": "¿Cuánto cuesta Circleback?"
+        },
+        "speaker": "Ernesto Hernández Martínez",
+        "timestamp": 887
+      },
+      {
+        "insight": {
+          "pregunta_id": "d5e8f1a7",
+          "autor_pregunta": "Ernesto Hernández Martínez",
+          "estado_actual": "Abierta",
+          "contexto": "Propuesta de organización de reuniones en documento estructurado con tabla",
+          "fecha_registro": "2025-05-31",
+          "texto_pregunta": "¿Tendríamos que poner esto en un documento de coda y crear la tabla?"
+        },
+        "speaker": "Ernesto Hernández Martínez",
+        "timestamp": 1026
+      }
+    ],
+    "IdeasSeguimientoInfo": [
+      {
+        "insight": {
+          "tema_principal": "Evaluación de alternativas a Circleback",
+          "responsable_directo": "Ernesto Hernández Martínez",
+          "descripcion": "Necesidad de evaluar si conviene más utilizar Circleback ($25 mensuales por sesión) o implementar Mistral en un servidor propio. También considerar evaluar indie ea y recrío como alternativas para automatización de notas y transcripciones.",
+          "fecha_reunion": "2025-05-31",
+          "idea_id": "a8f3d2e1",
+          "otros_participantes": "Gael Flores Gonzáles",
+          "notas_adicionales": "Circleback cuesta $25 mensuales pero se necesitarían más sesiones. Actualmente no se están aprovechando todas las funcionalidades disponibles.",
+          "tipo_de_insight": "Seguimiento"
+        },
+        "speaker": "Ernesto Hernández Martínez",
+        "timestamp": 887
+      },
+      {
+        "insight": {
+          "tema_principal": "Crear documento estructurado en Coda para reuniones",
+          "responsable_directo": "Ernesto Hernández Martínez",
+          "descripcion": "Propuesta de crear un documento en Coda con una tabla donde se ordenen y estructuren las reuniones de manera organizada, además de crear las tablas necesarias para los insights.",
+          "fecha_reunion": "2025-05-31",
+          "idea_id": "b7c4e9f2",
+          "otros_participantes": "Gael Flores Gonzáles",
+          "notas_adicionales": "Esto ayudaría a tener mejor organización y seguimiento de las reuniones y sus insights generados.",
+          "tipo_de_insight": "Idea"
+        },
+        "speaker": "Ernesto Hernández Martínez",
+        "timestamp": 1026
+      },
+      {
+        "insight": {
+          "tema_principal": "Estado actual de la automatización de insights",
+          "responsable_directo": "Gael Flores Gonzáles",
+          "descripcion": "La automatización está configurada para crear insights automáticamente al finalizar cualquier reunión y enviar toda la información. Actualmente tiene opción de enviar la última transcripción para pruebas del webhook.",
+          "fecha_reunion": "2025-05-31",
+          "idea_id": "c9d5a3b8",
+          "otros_participantes": "Ernesto Hernández Martínez",
+          "notas_adicionales": "El sistema debería funcionar automáticamente sin intervención manual una vez finalizada la configuración.",
+          "tipo_de_insight": "Información"
+        },
+        "speaker": "Gael Flores Gonzáles",
+        "timestamp": 1001
+      }
+    ]
+  }
+}

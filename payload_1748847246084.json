@@ -1,0 +1,311 @@
+{
+  "id": 2059300,
+  "name": "Circle Back Tool Evaluation & Testing",
+  "createdAt": "2025-05-31T19:37:40.041Z",
+  "duration": 2015.21,
+  "url": "https://meet.google.com/vau-xahf-ghm",
+  "attendees": [
+    {
+      "name": "Gael Flores's Circleback.ai Notes"
+    },
+    {
+      "name": "Gael Flores Gonzáles"
+    },
+    {
+      "name": "Ernesto Hernández Martínez"
+    }
+  ],
+  "recordingUrl": "https://storage.googleapis.com/saved-meeting-recording.prod.circleback.ai/meeting_2059300.mp4?X-Goog-Algorithm=GOOG4-RSA-SHA256&X-Goog-Credential=circleback-ai%40appspot.gserviceaccount.com%2F20250602%2Fauto%2Fstorage%2Fgoog4_request&X-Goog-Date=20250602T065405Z&X-Goog-Expires=28800&X-Goog-SignedHeaders=host&X-Goog-Signature=86f55be52783ffbc2cbbcb077dfede8bce296a527d02587c9a0b0614b30dd77962188b926a47d07ac4366486c0af2427a4753eef0355b47234db6427cbab26478a9f5d4217667a62e961e29e086139bdef570c5db23d93478d47b9a28ead8db047f166e3dbe478791f27335861d11de8bc21f8a29b80035e9a0f95ff98199e13b1bf7dbceb0c0b2af3dae403eec9f8f57d656d75b1904dd262c884d2d81266e77be5e1c50db34f87c0cea9a829abac0e02242a0cd9d1bc42455e379138a52cb0cc1b49b5fb73309aa74058c9679ca6056aedae20bd65a7942ec7aa8e6cfd6a9ff63dc54a0bd8924b5a6e0ac830ef2afa2a0698597574017bfa3504bc8873306c",
+  "tags": [],
+  "notes": "#### Overview\n* Gael probó Circle Back exitosamente, generando transcripciones, insights y resúmenes automáticos de reuniones\n* Circle Back cuesta **$25** por sesión, con **7 días** de prueba gratuita antes de cancelar\n* Google Meet con Gemini requiere actualizar de Business Starter a Business Standard para acceder a funcionalidades de transcripción\n* Ernesto decidió continuar con Circle Back para el proceso completo mientras investigan alternativas técnicas como Crew AI y Lindy\n* Identificaron que Circle Back permite múltiples usuarios en la misma reunión sin costo adicional\n\n#### Evaluación de Circle Back\n* Gael completó prueba exitosa de Circle Back, confirmando que genera transcripciones, insights y resúmenes automáticamente\n* La herramienta cuesta **$25** por sesión, comparado con **$20** por usuario en otras opciones\n* Circle Back requiere que las reuniones estén programadas en agenda para unirse automáticamente\n* Gael confirmó que se pueden tener múltiples instancias de Circle Back en la misma reunión\n* Ernesto estableció límite de **7 días** para cancelar la prueba si no funciona adecuadamente\n\n#### Pruebas de funcionalidades de transcripción\n* Gael generó exitosamente un insight automático: \"Evaluación crítica de herramientas - se debe evaluar si Circle Back **$25** por sesión es costo efectivo comparado con implementar servidor propio\"\n* La transcripción se guardó correctamente, aunque el formato mostró \"object, object, object\" en la interfaz\n* Gael confirmó que tanto la transcripción como los insights funcionan correctamente\n* La herramienta genera resúmenes automáticos de reuniones disponibles inmediatamente después\n\n#### Exploración de Google Meet con Gemini\n* Ernesto identificó que su plan actual Business Starter no incluye funcionalidades de Gemini para Meet\n* Necesitan actualizar a Business Standard para acceder a \"toma notas por mí\" y otras funciones de Gemini\n* Ernesto decidió postponer la evaluación de Google Meet debido a limitaciones del plan actual\n* Identificaron que Google Meet permite desarrollo de integraciones personalizadas desde plataformas como Coda\n\n#### Evaluación de Crew AI\n* Gael encontró plantilla \"meeting preparation\" en Crew AI que recomienda información sobre empresas objetivo y competidores\n* Ernesto aprobó usar Crew AI para preparación previa de reuniones\n* La herramienta ofrece múltiples modelos incluyendo GPT-4 Turbo y GPT-4.1 Mini\n* Ernesto sugirió investigar alternativas en Hugging Face para meeting note takers\n\n#### Análisis de alternativas técnicas\n* Ernesto mencionó Lindy como alternativa a investigar, confirmando que Gael ya se registró sin tarjeta de crédito\n* Identificaron Hugging Face como opción para desarrollar meeting note taker personalizado\n* Ernesto planteó dos casos de uso: reuniones con internet (Circle Back) y sin internet (usando modelos locales)\n* Decidieron continuar con Circle Back para el proceso completo mientras investigan otras opciones técnicas",
+  "actionItems": [],
+  "insights": {
+    "Tarea": [
+      {
+        "insight": {
+          "descripcion_completa": "Cancelar la suscripción de Circleback antes de que se cumpla el período de prueba de 7 días para evitar cargos automáticos",
+          "otros_participantes": "[]",
+          "fecha_limite": "2025-06-07",
+          "requiere_seguimiento": true,
+          "responsable_directo": "Gael Flores Gonzáles",
+          "tarea_id": "a8f3d2e1",
+          "tema_principal": "Gestión de suscripciones",
+          "notas_adicionales": "Es importante recordar esta fecha límite para evitar cargos no deseados si deciden no continuar con la herramienta",
+          "proyecto_o_area_relacionada": "Automatización de reuniones",
+          "impacto_importancia": "Media"
+        },
+        "speaker": "Ernesto Hernández Martínez",
+        "timestamp": 511
+      },
+      {
+        "insight": {
+          "descripcion_completa": "Registrarse y explorar Lindy después de terminar de comer para evaluar sus capacidades de automatización de reuniones",
+          "otros_participantes": "[]",
+          "fecha_limite": "2025-05-31",
+          "requiere_seguimiento": false,
+          "responsable_directo": "Gael Flores Gonzáles",
+          "tarea_id": "b7c4e9f2",
+          "tema_principal": "Evaluación de herramientas",
+          "notas_adicionales": "Verificar que no se registre tarjeta de crédito para evitar cargos automáticos durante la evaluación",
+          "proyecto_o_area_relacionada": "Automatización de reuniones",
+          "impacto_importancia": "Baja"
+        },
+        "speaker": "Ernesto Hernández Martínez",
+        "timestamp": 1429
+      },
+      {
+        "insight": {
+          "descripcion_completa": "Continuar trabajando con la integración de Circleback y completar la configuración del proceso de automatización de reuniones",
+          "otros_participantes": "[]",
+          "fecha_limite": "2025-06-02",
+          "requiere_seguimiento": true,
+          "responsable_directo": "Gael Flores Gonzáles",
+          "tarea_id": "c9d5a3b8",
+          "tema_principal": "Implementación de Circleback",
+          "notas_adicionales": "Priorizar el trabajo con Circleback mientras se investigan otras alternativas en paralelo",
+          "proyecto_o_area_relacionada": "Automatización de reuniones",
+          "impacto_importancia": "Alta"
+        },
+        "speaker": "Ernesto Hernández Martínez",
+        "timestamp": 1921
+      }
+    ],
+    "DecisionesEstratégicas": [
+      {
+        "insight": {
+          "descripcion_decision": "Cancelar la suscripción de Circleback antes de los 7 días si no funciona adecuadamente",
+          "decision_id": "a8f3b2c1",
+          "fecha_decision": "2025-05-31",
+          "participantes_clave": "Ernesto Hernández Martínez, Gael Flores Gonzáles",
+          "seguimiento_requerido": true,
+          "justificacion": "Solo tienen 7 días de prueba gratuita antes de que se active el cobro automático",
+          "impacto_en": "Presupuesto del proyecto y continuidad de las pruebas de herramientas",
+          "proxima_fecha_revision": "2025-06-07",
+          "tipo_de_insight": "DecisionesEstratégicas"
+        },
+        "speaker": "Ernesto Hernández Martínez",
+        "timestamp": 499
+      },
+      {
+        "insight": {
+          "descripcion_decision": "Utilizar Circleback como herramienta principal para el proceso de reuniones mientras se investigan otras alternativas",
+          "decision_id": "b7e9d4f2",
+          "fecha_decision": "2025-05-31",
+          "participantes_clave": "Ernesto Hernández Martínez, Gael Flores Gonzáles",
+          "seguimiento_requerido": true,
+          "justificacion": "Circleback ya está funcionando y permite continuar con el desarrollo mientras se evalúan otras opciones como Lindy y herramientas de Hugging Face",
+          "impacto_en": "Desarrollo del sistema de automatización de reuniones y planificación técnica",
+          "proxima_fecha_revision": "2025-06-07",
+          "tipo_de_insight": "DecisionesEstratégicas"
+        },
+        "speaker": "Ernesto Hernández Martínez",
+        "timestamp": 1921
+      }
+    ],
+    "Feedback": [
+      {
+        "insight": {
+          "feedback_id": "b8a7c3d2",
+          "categoria": "Herramientas",
+          "fecha_feedback": "2025-05-31",
+          "autor_feedback": "Ernesto Hernández Martínez",
+          "urgencia": "Media",
+          "texto_feedback": "Pagar $20 por cada usuario está muy caro. Necesitamos evaluar si es costo-efectivo comparado con otras opciones."
+        },
+        "speaker": "Ernesto Hernández Martínez",
+        "timestamp": 316
+      },
+      {
+        "insight": {
+          "feedback_id": "f4e9a1b6",
+          "categoria": "Herramientas",
+          "fecha_feedback": "2025-05-31",
+          "autor_feedback": "Ernesto Hernández Martínez",
+          "urgencia": "Alta",
+          "texto_feedback": "Con Business Starter no se puede usar Gemini para Meet. Necesitamos Business Standard para acceder a las funciones de transcripción automática."
+        },
+        "speaker": "Ernesto Hernández Martínez",
+        "timestamp": 998
+      }
+    ],
+    "ResumenReunion": [
+      {
+        "insight": {
+          "decisiones_tomadas": "2",
+          "fecha_reunion": "2025-05-31",
+          "reunion_id": "e6a3d1b4",
+          "bloqueos_detectados": "1",
+          "titulo_reunion": "Evaluación de herramientas de transcripción y automatización de reuniones",
+          "tareas_identificadas": "3",
+          "resumen_general": "Reunión técnica para evaluar diferentes herramientas de transcripción y automatización de reuniones. Se probó Circle Back como solución principal, evaluando su costo-efectividad ($25 por sesión vs implementación propia). También se exploraron alternativas como Google Meet con Gemini, Crew AI y Lindy para automatización de reuniones. Se identificó la necesidad de upgrade a Google Workspace Business Standard para funcionalidades avanzadas.",
+          "seguimiento_requerido": "Yes",
+          "proyectos_relacionados": "Circle Back, Google Meet, Gemini, Crew AI, Lindy, Google Workspace",
+          "temas_clave": "Evaluación de Circle Back, Costos de herramientas de transcripción, Integración con Google Meet, Exploración de alternativas de automatización, Configuración de Google Workspace, Pruebas de funcionalidades",
+          "participantes_principales": "Ernesto Hernández Martínez, Gael Flores Gonzáles"
+        },
+        "speaker": null,
+        "timestamp": null
+      }
+    ],
+    "IdeasSeguimientoInfo": [
+      {
+        "insight": {
+          "idea_id": "b8a7c3f2",
+          "responsable_directo": "Gael Flores Gonzáles",
+          "fecha_reunion": "2025-05-31",
+          "otros_participantes": "Ernesto Hernández Martínez",
+          "notas_adicionales": "Se generó un insight sobre evaluación crítica de herramientas durante una reunión corta de prueba",
+          "descripcion": "Evaluación crítica de herramientas de reuniones remotas. Se debe evaluar si Circle Back a $25 por sesión es costo efectivo comparado con implementar una solución propia en servidor, considerando el número de sesiones actuales",
+          "tipo_de_insight": "Seguimiento",
+          "tema_principal": "Evaluación de costo-efectividad de Circle Back"
+        },
+        "speaker": "Gael Flores Gonzáles",
+        "timestamp": 103
+      },
+      {
+        "insight": {
+          "idea_id": "a9d4e6b1",
+          "responsable_directo": "Ernesto Hernández Martínez",
+          "fecha_reunion": "2025-05-31",
+          "otros_participantes": "Gael Flores Gonzáles",
+          "notas_adicionales": "Consideración sobre el modelo de precios por usuario vs uso general de la herramienta",
+          "descripcion": "Análisis del modelo de precios de herramientas de reuniones. Pagar $20 es justificable si se va a usar frecuentemente, pero pagar $20 por cada usuario individual sería muy costoso para la organización",
+          "tipo_de_insight": "Información",
+          "tema_principal": "Análisis de modelo de precios por usuario"
+        },
+        "speaker": "Ernesto Hernández Martínez",
+        "timestamp": 316
+      },
+      {
+        "insight": {
+          "idea_id": "c5f8a2d7",
+          "responsable_directo": "Ernesto Hernández Martínez",
+          "fecha_reunion": "2025-05-31",
+          "otros_participantes": "Gael Flores Gonzáles",
+          "notas_adicionales": "Propuesta de integración completa desde una sola plataforma para mejorar la eficiencia",
+          "descripcion": "Propuesta de integración con Google Meet desde Coda para crear un flujo automatizado completo. Desde Coda se podría crear la sesión de Google Meet, generar la reunión, grabar toda la información y mantener todo registrado en la misma plataforma",
+          "tipo_de_insight": "Idea",
+          "tema_principal": "Integración automatizada Coda-Google Meet"
+        },
+        "speaker": "Ernesto Hernández Martínez",
+        "timestamp": 449
+      },
+      {
+        "insight": {
+          "idea_id": "d7b9e4a3",
+          "responsable_directo": "Ernesto Hernández Martínez",
+          "fecha_reunion": "2025-05-31",
+          "otros_participantes": "Gael Flores Gonzáles",
+          "notas_adicionales": "Recordatorio importante sobre la cancelación del periodo de prueba",
+          "descripcion": "Recordatorio para cancelar Circle Back antes de que termine el periodo de prueba de 7 días para evitar cargos. Después se evaluará Google Meet y Clindy como alternativas",
+          "tipo_de_insight": "Seguimiento",
+          "tema_principal": "Cancelación de prueba de Circle Back"
+        },
+        "speaker": "Ernesto Hernández Martínez",
+        "timestamp": 499
+      },
+      {
+        "insight": {
+          "idea_id": "e8c1f5b6",
+          "responsable_directo": "Gael Flores Gonzáles",
+          "fecha_reunion": "2025-05-31",
+          "otros_participantes": "Ernesto Hernández Martínez",
+          "notas_adicionales": "Exploración de Lindy como herramienta de automatización de reuniones con diferentes modelos de IA",
+          "descripcion": "Investigación de Lindy para automatización de reuniones. La plataforma incluye un 'meeting note taker' y permite seleccionar diferentes modelos como GPT-4 turbo y GPT-4.1 mini para el procesamiento",
+          "tipo_de_insight": "Información",
+          "tema_principal": "Exploración de Lindy para meeting note taker"
+        },
+        "speaker": "Ernesto Hernández Martínez",
+        "timestamp": 1528
+      },
+      {
+        "insight": {
+          "idea_id": "f9d2a7c4",
+          "responsable_directo": "Ernesto Hernández Martínez",
+          "fecha_reunion": "2025-05-31",
+          "otros_participantes": "Gael Flores Gonzáles",
+          "notas_adicionales": "Definición de estrategia de implementación considerando diferentes escenarios de conectividad",
+          "descripcion": "Estrategia de implementación por fases: usar Circle Back para el proceso actual de reuniones remotas, mientras se investigan alternativas como soluciones locales para casos sin Internet. Se requiere más investigación y aprendizaje de las diferentes opciones",
+          "tipo_de_insight": "Seguimiento",
+          "tema_principal": "Estrategia de implementación por fases"
+        },
+        "speaker": "Ernesto Hernández Martínez",
+        "timestamp": 1921
+      }
+    ],
+    "insight_detallado": [
+      {
+        "insight": {
+          "impacto_importancia": 2,
+          "otros_participantes": "Ernesto Hernández Martínez",
+          "requiere_seguimiento": true,
+          "descripcion_completa": "Evaluar si Circle Back a $25 por sesión es costo-efectivo comparado con implementar una solución propia en servidor, considerando el número de sesiones actuales y proyectadas. Esta evaluación debe incluir análisis de costos, funcionalidades y escalabilidad.",
+          "fecha_limite": "",
+          "resumen": "Evaluación de costo-efectividad de Circle Back vs solución propia",
+          "responsable_directo": "Gael Flores Gonzáles",
+          "proyecto_o_area_relacionada": "Herramientas de reuniones y transcripción",
+          "notas_adicionales": "Se generó automáticamente un insight sobre esta evaluación durante la prueba de Circle Back",
+          "tipo_de_insight": "Tarea",
+          "tema_principal": "Evaluación crítica de herramientas de reuniones",
+          "insight_id": "8a7c9d2f"
+        },
+        "speaker": "Ernesto Hernández Martínez",
+        "timestamp": 316
+      },
+      {
+        "insight": {
+          "impacto_importancia": 3,
+          "otros_participantes": "Ernesto Hernández Martínez",
+          "requiere_seguimiento": true,
+          "descripcion_completa": "Cancelar la suscripción de Circle Back antes de que se cumplan los 7 días de prueba gratuita para evitar cargos automáticos. Recordatorio crítico para gestión de suscripciones de prueba.",
+          "fecha_limite": "2025-06-07",
+          "resumen": "Cancelar Circle Back antes de 7 días",
+          "responsable_directo": "Gael Flores Gonzáles",
+          "proyecto_o_area_relacionada": "Gestión de suscripciones y herramientas",
+          "notas_adicionales": "Fecha límite calculada: 7 días desde el 31 de mayo de 2025",
+          "tipo_de_insight": "Tarea",
+          "tema_principal": "Gestión de periodo de prueba de Circle Back",
+          "insight_id": "f3e8a1b4"
+        },
+        "speaker": "Ernesto Hernández Martínez",
+        "timestamp": 499
+      },
+      {
+        "insight": {
+          "impacto_importancia": 2,
+          "otros_participantes": "Ernesto Hernández Martínez",
+          "requiere_seguimiento": true,
+          "descripcion_completa": "Explorar y probar las funcionalidades de Lindy para automatización de reuniones, específicamente el 'meeting note taker'. Evaluar sus capacidades y comparar con otras herramientas disponibles.",
+          "fecha_limite": "",
+          "resumen": "Explorar herramienta Lindy para reuniones",
+          "responsable_directo": "Gael Flores Gonzáles",
+          "proyecto_o_area_relacionada": "Investigación de herramientas de automatización",
+          "notas_adicionales": "Ya tiene cuenta registrada sin tarjeta de crédito",
+          "tipo_de_insight": "Tarea",
+          "tema_principal": "Investigación de alternativas de herramientas para reuniones",
+          "insight_id": "c5d7f9a2"
+        },
+        "speaker": "Gael Flores Gonzáles",
+        "timestamp": 1471
+      },
+      {
+        "insight": {
+          "impacto_importancia": 2,
+          "otros_participantes": "Ernesto Hernández Martínez",
+          "requiere_seguimiento": true,
+          "descripcion_completa": "Continuar el desarrollo e integración con Circle Back para el proceso completo de reuniones. Posteriormente investigar otras alternativas como Hugging Face para casos sin internet y explorar más opciones de automatización.",
+          "fecha_limite": "",
+          "resumen": "Continuar desarrollo con Circle Back e investigar alternativas",
+          "responsable_directo": "Gael Flores Gonzáles",
+          "proyecto_o_area_relacionada": "Desarrollo de sistema de reuniones",
+          "notas_adicionales": "Prioridad en Circle Back, luego investigación de otras herramientas",
+          "tipo_de_insight": "Tarea",
+          "tema_principal": "Desarrollo continuo del sistema de reuniones",
+          "insight_id": "a9b2c4e6"
+        },
+        "speaker": "Ernesto Hernández Martínez",
+        "timestamp": 1921
+      }
+    ]
+  }
+}

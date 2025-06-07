@@ -1,0 +1,50 @@
+Aquí tienes la **descripción actualizada del proyecto técnico de integración Circleback → Coda**, incluyendo una tabla comparativa entre lo que se había declarado inicialmente en el archivo `resumen-proyecto.txt` (versión cargada) y lo que realmente hemos logrado al día de hoy:
+
+---
+
+## ✅ Descripción completa del proyecto (actualizada)
+
+**Nombre del proyecto:** Integración Automatizada de Insights de Circleback en Tablas de Coda
+**Responsable:** Gael Flores
+**Inicio:** Junio 2025
+**Estado:** En producción técnica funcional, iterando mejoras
+
+**Objetivo principal:**
+Recibir automáticamente los insights de reuniones generados por Circleback (vía Webhook) y clasificarlos para su almacenamiento estructurado en múltiples tablas de Coda, habilitando dashboards, seguimiento y consultas sin fricción.
+
+---
+
+## 🔄 Comparativa: Declarado originalmente vs. Logrado actualmente
+
+| Elemento clave                  | Descripción original (archivo)                                            | Estado actual (actualizado al 6 de junio de 2025)                                                                                                              |
+| ------------------------------- | ------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Webhook funcional**           | Mencionado como parte de la intención del flujo, pero aún sin implementar | ✅ Webhook funcionando en Express. Recibe `POST /circleback_webhook`, verifica firma y guarda el payload en JSON                                                |
+| **Verificación de firma HMAC**  | No especificado aún                                                       | ✅ Implementado con `crypto.timingSafeEqual`, usando el `CIRCLEBACK_SECRET` opcional                                                                            |
+| **Normalización de payload**    | Sin especificar                                                           | ✅ Renombramiento robusto de claves (`Tarea`, `Preguntas Pendientes`, etc.) para que coincidan con los handlers                                                 |
+| **Tablas en Coda configuradas** | Solo mencionada intención de insertar insights en tablas                  | ✅ Nueve tablas configuradas con `CODA_TABLE_*` variables de entorno e inserción por API                                                                        |
+| **Inserción en Coda**           | No implementada                                                           | ✅ Inserción en lotes (batchSize 25), con retry y control de tasa (`429`), logging detallado                                                                    |
+| **Payloads reales procesados**  | No aplicable                                                              | ✅ Se han procesado reuniones reales con múltiples tipos de insights insertados correctamente                                                                   |
+| **Manejo de errores y límites** | No considerado aún                                                        | ✅ Retrasos de 700ms + retry exponencial hasta 8 veces al recibir 429 Too Many Requests                                                                         |
+| **Auditoría y debugging**       | No considerado                                                            | ✅ Payloads guardados con timestamp local (`payload_*.json`)                                                                                                    |
+| **Tipo de insights procesados** | No definidos claramente                                                   | ✅ Tarea, Preguntas Pendientes, Feedback, RiesgosBloqueos, DecisionesEstratégicas, IdeasSeguimientoInfo, ResumenReunion, NuevoSchemaReunion, insight\_detallado |
+| **Campos mapeados en Coda**     | No definidos                                                              | ✅ Cada tabla tiene sus columnas específicas con mapeo limpio (ver sección siguiente)                                                                           |
+
+---
+
+## 📋 Tablas actualmente activas y campos recibidos
+
+| Tabla Coda               | Clave en JSON            | Columnas clave en Coda                                                                                                                                                                                                                                |
+| ------------------------ | ------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `Tarea`                  | `Tarea`                  | `tarea_id`, `tema_principal`, `descripcion_completa`, `responsable_directo`, `otros_participantes`, `fecha_limite`, `proyecto_o_area_relacionada`, `impacto_importancia`, `requiere_seguimiento`, `notas_adicionales`                                 |
+| `PreguntasPendientes`    | `Preguntas Pendientes`   | `pregunta_id`, `texto_pregunta`, `autor_pregunta`, `contexto`, `estado_actual`, `fecha_registro`                                                                                                                                                      |
+| `Feedback`               | `Feedback`               | `feedback_id`, `autor_feedback`, `texto_feedback`, `categoria`, `urgencia`, `fecha_feedback`                                                                                                                                                          |
+| `RiesgosBloqueos`        | `RiesgosBloqueos`        | `riesgo_id`, `bloqueo_id`, `tipo`, `descripcion`, `origen`, `impacto_posible`, `accion_recomendada`, `responsable`, `fecha_identificacion`                                                                                                            |
+| `DecisionesEstratégicas` | `DecisionesEstratégicas` | `decision_id`, `tipo_de_insight`, `descripcion_decision`, `justificacion`, `participantes_clave`, `fecha_decision`, `impacto_en`, `seguimiento_requerido`, `proxima_fecha_revision`                                                                   |
+| `IdeasSeguimientoInfo`   | `IdeasSeguimientoInfo`   | `idea_id`, `tipo_de_insight`, `tema_principal`, `descripcion`, `responsable_directo`, `otros_participantes`, `fecha_reunion`, `notas_adicionales`                                                                                                     |
+| `ResumenReunion`         | `ResumenReunion`         | `reunion_id`, `fecha_reunion`, `titulo_reunion`, `resumen_general`, `participantes_principales`, `temas_clave`, `decisiones_tomadas`, `tareas_identificadas`, `bloqueos_detectados`, `seguimiento_requerido`, `proyectos_relacionados`                |
+| `NuevoSchemaReunion`     | `NuevoSchemaReunion`     | `schema_id`, `motivo_generico`, `campos_sugeridos`, `valor_ejemplo`                                                                                                                                                                                   |
+| `insight_detallado`      | `insight_detallado`      | `insight_id`, `tipo_de_insight`, `tema_principal`, `resumen`, `descripcion_completa`, `responsable_directo`, `otros_participantes`, `fecha_limite`, `proyecto_o_area_relacionada`, `impacto_importancia`, `requiere_seguimiento`, `notas_adicionales` |
+
+---
+
+¿Deseas que genere esta versión en un archivo `.md` o `.txt` para que lo documentes formalmente? También puedo ayudarte a escribir el *changelog* o historial técnico en un archivo separado.

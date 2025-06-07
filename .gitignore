@@ -1,0 +1,16 @@
+# Ignore node modules
+node_modules/
+
+# Env files
+.env
+
+# Logs y builds
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Carpetas de prueba / backups
+prueba/
+scripts/
+*.py
+*.txt

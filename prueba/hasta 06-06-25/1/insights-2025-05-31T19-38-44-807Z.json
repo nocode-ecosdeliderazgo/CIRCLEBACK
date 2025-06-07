@@ -1,9 +1,0 @@
-{
-  "insights": [
-    {
-      "insight": "**Evaluación crítica de herramientas**: Se debe evaluar si Circleback ($25/mes por sesión) es costo-efectivo comparado con implementar Mistral en servidor propio, considerando que necesitan múltiples sesiones y actualmente no están utilizando todas las funcionalidades disponibles.",
-      "speaker": "Ernesto Hernández Martínez",
-      "timestamp": 887
-    }
-  ]
-}
